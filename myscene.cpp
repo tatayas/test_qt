@@ -1,0 +1,125 @@
+#include "myscene.h"
+#include <QGraphicsRectItem>
+#include <QDebug>
+#include <QColor>
+#include <QColorDialog>
+#include <QString>
+
+MyScene::MyScene(QWidget *parent) : QGraphicsScene(parent)
+{
+    this->setSceneRect(0,0,500,500);
+    m_drawingInProcess = false;
+    m_current = nullptr;
+}
+
+void MyScene::changeColor()
+{
+    QString title_getColor (tr("TANYA TESTING THE COLOR"));
+    //QColor color = QColorDialog::getColor(Qt::green, parent, title_getColor);
+    QColor color = QColorDialog::getColor(Qt::white);
+
+    if (color.isValid())
+    {
+       color_ramka =color;
+    }
+}
+
+
+void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+     //qDebug() <<" first m_current = " << m_current;
+     if (event->button() == Qt::RightButton)
+     {
+         m_startPoint = event->scenePos();
+
+         m_current=new QGraphicsRectItem(m_startPoint.x(),m_startPoint.y(),0.,0.);
+         qDebug() <<"m_current = " << m_current;
+
+         // Создаем перо с текущими атрибутами (пункт 6)
+         QPen pen;
+         //color_ramka.yellow();
+
+         qDebug() <<"color_ramka_begin = " << color_ramka;
+         //color_ramka = QColor(Qt::blue);
+
+
+         //width_ramka = 20;
+         pen.setColor(color_ramka); // Цвет из поля класса
+         pen.setWidth(width_ramka);    // Толщина из поля класса
+         pen.setStyle(m_penStyle);     // Стиль (например, Qt::SolidLine)
+
+         qDebug() <<"color_ramka_end = " << color_ramka;
+
+         // Ассоциируем перо и кисть с примитивом
+         m_current->setPen(pen);         // Устанавливаем рамку
+         m_current->setBrush(color_kistochka);   // Устанавливаем заливку (пункт 6)
+         m_current->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+         m_current->setBrush(color_kistochka);
+         // 4. Устанавливаем начальную позицию объекта на сцене
+         m_current->setPos(m_startPoint);
+
+         // 5. ДОБАВЛЯЕМ ОБЪЕКТ НА СЦЕНУ
+         addItem(m_current);
+
+         m_drawingInProcess =true;
+         update();
+
+     }
+
+     if (event->button()==Qt::LeftButton)
+     {
+         m_drawingInProcess =false;
+     }
+
+     // Не забываем вызвать базовый обработчик, чтобы работали стандартные функции (например, выбор)
+     QGraphicsScene::mousePressEvent(event);
+
+
+}
+
+void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() <<"color_ramka_end = " << color_ramka;
+    if (m_drawingInProcess && m_current)
+    {
+           // Вычисляем размеры относительно стартовой точки
+           qreal width =   event->scenePos().x() - m_startPoint.x() ;
+           //qDebug() <<"width = " << width;
+           qreal height =  event->scenePos().y() - m_startPoint.y() ;
+           //qDebug() <<"height = " << height;
+
+           //static_cast<QGraphicsRectItem*>(current)->setRect(0, 0, width, height);
+
+           // Обновляем геометрию (здесь считаем, что тянем вправо-вниз)
+           //if (m_currentShape == Rectangle) {
+               //static_cast<QGraphicsRectItem*>(current)->setRect(0, 0, width, height);
+          // } else {
+             //  static_cast<QGraphicsEllipseItem*>(current)->setRect(0, 0, width, height);
+           //}
+           QGraphicsRectItem*  new_cur = qgraphicsitem_cast<QGraphicsRectItem*>(m_current);
+           if (new_cur)
+           {
+               new_cur->setRect(0,0,width,height);
+           }
+
+          // new_cur->normalized();
+          // rect_obj->normalized();
+           //if (rect_obj) rect_obj->setRect(rect_real);
+       }
+       QGraphicsScene::mouseMoveEvent(event);
+
+
+}
+
+void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+
+    //m_drawingInProcess =false;
+    if (m_drawingInProcess)
+    {
+        m_current = nullptr;
+        m_drawingInProcess =false;
+    }
+
+    QGraphicsScene::mouseReleaseEvent (event);
+}
