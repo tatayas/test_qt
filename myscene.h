@@ -21,7 +21,7 @@ public:
 
     // Описываем типы фигур
     enum ShapeType { Rectangle, Ellipse }; // Типы примитивов
-    QColor color_ramka = Qt::darkRed;             //цвет рамки
+    QColor color_ramka = Qt::yellow;             //цвет рамки
 
 public slots:
     void changeColor();
