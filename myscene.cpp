@@ -4,6 +4,8 @@
 #include <QColor>
 #include <QColorDialog>
 #include <QString>
+#include "dialog.h"
+
 
 MyScene::MyScene(QWidget *parent) : QGraphicsScene(parent)
 {
@@ -14,14 +16,41 @@ MyScene::MyScene(QWidget *parent) : QGraphicsScene(parent)
 
 void MyScene::changeColor()
 {
-    QString title_getColor (tr("TANYA TESTING THE COLOR"));
-    //QColor color = QColorDialog::getColor(Qt::green, parent, title_getColor);
-    QColor color = QColorDialog::getColor(Qt::white);
 
-    if (color.isValid())
+    //classic Dialog
+
+    //QString title_getColor (tr("TANYA TESTING THE COLOR"));
+   // QColor color = QColorDialog::getColor(Qt::white);
+
+    //    if (color.isValid())
+    //    {
+    //       color_ramka =color;
+    //    }
+
+
+    //my Dialog
+    Dialog dial;
+    dial.show();
+
+    int color_blue = color_ramka.blue();
+    qDebug() << "color_blue" <<color_blue;
+    dial.horizontalSlider_Blue->setValue(color_blue);
+    qDebug() << "position color_blue" << dial.horizontalSlider_Blue->sliderPosition();
+
+
+    if (dial.exec() == QDialog::Accepted)
     {
-       color_ramka =color;
+
+        qDebug() << "position color_blue" << dial.horizontalSlider_Blue->sliderPosition();
+        update();
+
     }
+
+
+
+
+
+
 }
 
 

@@ -3,6 +3,7 @@
 #include "myscene.h"
 #include <QColor>
 #include <QColorDialog>
+#include <QDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,8 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     //Например,
     ui->graphicsView->setScene(scene); //и ассоциируем ее с QGraphicsView
     QObject::connect(ui->actionChange_Color,SIGNAL(triggered()), scene, SLOT(changeColor()));
-
-
 }
 
 MainWindow::~MainWindow()
@@ -22,14 +21,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//void MainWindow::changeColor()
-//{
-//        QString title_getColor (tr("TANYA TESTING THE COLOR"));
-//        //QColor color = QColorDialog::getColor(Qt::green, parent, title_getColor);
-//        QColor color = QColorDialog::getColor(Qt::black);
+void MainWindow::changeColor()
+{
 
-//        if (color.isValid())
-//        {
-//            scene
-//        }
-//}
+}

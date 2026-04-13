@@ -10,10 +10,17 @@
 #include <QPen>
 #include <QBrush>
 #include <QPointF>
+#include "dialog.h"
+
 
 class MyScene : public QGraphicsScene
 {
     Q_OBJECT
+//public:
+
+//    Dialog *dial;
+
+
 
 
 public:
@@ -21,7 +28,7 @@ public:
 
     // Описываем типы фигур
     enum ShapeType { Rectangle, Ellipse }; // Типы примитивов
-    QColor color_ramka = Qt::yellow;             //цвет рамки
+    QColor color_ramka = Qt::darkBlue;             //цвет рамки
 
 public slots:
     void changeColor();
@@ -50,8 +57,8 @@ private:
     bool m_drawingInProcess;        // Флаг "Идет рисование"
     QPointF   m_startPoint;        // Точка нажатия (левый верхний угол)
 
-    uint width_ramka = 10;               //толщина рамки
-    Qt::PenStyle m_penStyle = Qt::SolidLine;       // Стиль рамки
+    uint width_ramka = 5;               //толщина рамки
+    Qt::PenStyle m_penStyle = Qt::DashDotLine;       // Стиль рамки
     QBrush color_kistochka;  //можно также задать цвет  кисти QBrush  для закрашивания
 
 };
