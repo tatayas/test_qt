@@ -20,21 +20,22 @@ class MyScene : public QGraphicsScene
 
 //    Dialog *dial;
 
-
-
-
 public:
     explicit MyScene(QWidget *parent = nullptr);
 
     // Описываем типы фигур
     enum ShapeType { Rectangle, Ellipse }; // Типы примитивов
-    QColor color_ramka = Qt::darkBlue;             //цвет рамки
+    QColor color_ramka = Qt::lightGray;             //цвет рамки
 
 public slots:
     void changeColor();
+    void onRedSliderChanged(int value);
+    void onGreenSliderChanged(int value);
+    void onBlueSliderChanged(int value);
 
 
 signals:
+    void custom_color(int color);
 
     // QGraphicsScene interface
 protected:

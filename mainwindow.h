@@ -17,8 +17,10 @@ public:
 
 public slots:
     void changeColor();
+
+
 signals:
-    void sigColor();
+    void sigColor_blue(int color_blue);
 
 private:
     Ui::MainWindow *ui;

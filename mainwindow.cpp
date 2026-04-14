@@ -14,6 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
     //Например,
     ui->graphicsView->setScene(scene); //и ассоциируем ее с QGraphicsView
     QObject::connect(ui->actionChange_Color,SIGNAL(triggered()), scene, SLOT(changeColor()));
+    //Dialog *dialog = new Dialog(this);
+    // Предположим, senderObject отправляет сигнал sigData(QString)
+    //connect(scene, SIGNAL(custom_color(int)), dialog, SLOT(update_color(int)));
+    //dialog->exec(); // Модальный вызов
 }
 
 MainWindow::~MainWindow()

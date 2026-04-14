@@ -14,43 +14,98 @@ MyScene::MyScene(QWidget *parent) : QGraphicsScene(parent)
     m_current = nullptr;
 }
 
+
+
 void MyScene::changeColor()
 {
 
     //classic Dialog
 
-    //QString title_getColor (tr("TANYA TESTING THE COLOR"));
-   // QColor color = QColorDialog::getColor(Qt::white);
+//    QString title_getColor (tr("TANYA TESTING THE COLOR"));
+//    QColor color = QColorDialog::getColor(Qt::white);
 
-    //    if (color.isValid())
-    //    {
-    //       color_ramka =color;
-    //    }
+//        if (color.isValid())
+//        {
+//           color_ramka =color;
+//        }
 
 
     //my Dialog
-    Dialog dial;
-    dial.show();
+    Dialog *dial = new Dialog();
+    //dial->show();
+    // Инициализация слайдера
 
-    int color_blue = color_ramka.blue();
-    qDebug() << "color_blue" <<color_blue;
-    dial.horizontalSlider_Blue->setValue(color_blue);
-    qDebug() << "position color_blue" << dial.horizontalSlider_Blue->sliderPosition();
+    //horizontalSlider_Blue->setRange(0,255);
+
+    int initial_red = color_ramka.red();
+    int initial_green = color_ramka.green();
+    int initial_blue = color_ramka.blue();
+
+    // Проверка в консоли: что мы вообще передаем?
+    qDebug() << "Sending to sliders: R=" << initial_red << "G=" << initial_green << "B=" << initial_blue;
+
+    // 2. Инициализация СЛАЙДЕРОВ (Строгий порядок: Range -> Value)
+
+    // КРАСНЫЙ
+    dial->horizontalSlider_Red->setRange(0, 255);
+    dial->horizontalSlider_Red->setValue(initial_red);
+
+    // ЗЕЛЕНЫЙ
+    dial->horizontalSlider_Green->setRange(0, 255);
+    dial->horizontalSlider_Green->setValue(initial_green);
+
+    // СИНИЙ
+    dial->horizontalSlider_Blue->setRange(0, 255);
+    dial->horizontalSlider_Blue->setValue(initial_blue);
+
+    // 3. Соединяем сигналы (старый стиль)
+    connect(dial->horizontalSlider_Blue, SIGNAL(valueChanged(int)), this, SLOT(onBlueSliderChanged(int)));
+    // ... остальные connect ...
+    // Показываем диалог в модальном режиме
+
+        qDebug() << "output = " << dial->horizontalSlider_Red->value();
+        if (dial->exec() == QDialog::Accepted)
+        {
+            color_ramka.setRed(dial->horizontalSlider_Red->value());
+            color_ramka.setGreen(dial->horizontalSlider_Green->value());
+            color_ramka.setBlue(dial->horizontalSlider_Blue->value());
+            update();
+            qDebug() << "data struct: red = " << color_ramka.red() <<"green = " <<color_ramka.green()<< "blue = "<<color_ramka.blue();
+
+       //  Применяем изменения
+//        color_ramka.setBlue(final_blue);
+        //update();
+        }
+        else
+
+        {
+            qDebug() << "Color selection cancelled";
+        }
 
 
-    if (dial.exec() == QDialog::Accepted)
-    {
-
-        qDebug() << "position color_blue" << dial.horizontalSlider_Blue->sliderPosition();
-        update();
-
-    }
 
 
 
 
 
+}
 
+void MyScene::onRedSliderChanged(int value)
+{
+    color_ramka.setRed(value);
+    update(); // Перерисовка
+}
+
+void MyScene::onGreenSliderChanged(int value)
+{
+    color_ramka.setGreen(value);
+    update();
+}
+
+void MyScene::onBlueSliderChanged(int value)
+{
+    color_ramka.setBlue(value);
+    update();
 }
 
 
