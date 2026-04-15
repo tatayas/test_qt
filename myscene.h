@@ -26,12 +26,12 @@ public:
     // Описываем типы фигур
     enum ShapeType { Rectangle, Ellipse }; // Типы примитивов
     QColor color_ramka = Qt::lightGray;             //цвет рамки
-
+    uint width_ramka = 5;               //толщина рамки
+    Qt::PenStyle m_penStyle = Qt::DashDotLine;       // Стиль рамки
 public slots:
     void changeColor();
-    void onRedSliderChanged(int value);
-    void onGreenSliderChanged(int value);
-    void onBlueSliderChanged(int value);
+    //void changeLine(int);
+
 
 
 signals:
@@ -58,8 +58,8 @@ private:
     bool m_drawingInProcess;        // Флаг "Идет рисование"
     QPointF   m_startPoint;        // Точка нажатия (левый верхний угол)
 
-    uint width_ramka = 5;               //толщина рамки
-    Qt::PenStyle m_penStyle = Qt::DashDotLine;       // Стиль рамки
+
+
     QBrush color_kistochka;  //можно также задать цвет  кисти QBrush  для закрашивания
 
 };

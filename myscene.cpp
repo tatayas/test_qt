@@ -4,6 +4,7 @@
 #include <QColor>
 #include <QColorDialog>
 #include <QString>
+#include <QPen>
 #include "dialog.h"
 
 
@@ -14,7 +15,10 @@ MyScene::MyScene(QWidget *parent) : QGraphicsScene(parent)
     m_current = nullptr;
 }
 
+void changeLine(int)
+{
 
+}
 
 void MyScene::changeColor()
 {
@@ -32,10 +36,7 @@ void MyScene::changeColor()
 
     //my Dialog
     Dialog *dial = new Dialog();
-    //dial->show();
-    // Инициализация слайдера
 
-    //horizontalSlider_Blue->setRange(0,255);
 
     int initial_red = color_ramka.red();
     int initial_green = color_ramka.green();
@@ -58,55 +59,48 @@ void MyScene::changeColor()
     dial->horizontalSlider_Blue->setRange(0, 255);
     dial->horizontalSlider_Blue->setValue(initial_blue);
 
-    // 3. Соединяем сигналы (старый стиль)
-    connect(dial->horizontalSlider_Blue, SIGNAL(valueChanged(int)), this, SLOT(onBlueSliderChanged(int)));
-    // ... остальные connect ...
-    // Показываем диалог в модальном режиме
+    //ТОЛЩИНА
+    dial->spinBox->setValue(width_ramka);
 
-        qDebug() << "output = " << dial->horizontalSlider_Red->value();
+    //СТИЛЬ
+
+    int index = dial->comboBox->findData(static_cast<int>(m_penStyle));
+    if (index != -1)
+    {
+        dial->comboBox->setCurrentIndex(index); //установила стиль, как в объявлении класса
+    }
+
+    //dial->
+
         if (dial->exec() == QDialog::Accepted)
         {
             color_ramka.setRed(dial->horizontalSlider_Red->value());
             color_ramka.setGreen(dial->horizontalSlider_Green->value());
             color_ramka.setBlue(dial->horizontalSlider_Blue->value());
-            update();
+            //uint width_ramka = 5;               //толщина рамки
+            width_ramka = dial->spinBox->value();
+            int data =dial->comboBox->currentData().toInt();
+            Qt::PenStyle my_new_style = static_cast<Qt::PenStyle>(data);
+
+            if (data != -1)
+            {
+                dial->comboBox->setCurrentIndex(my_new_style); //установила стиль
+                //m_penStyle =dial
+
+            }
+            //update();
             qDebug() << "data struct: red = " << color_ramka.red() <<"green = " <<color_ramka.green()<< "blue = "<<color_ramka.blue();
 
-       //  Применяем изменения
-//        color_ramka.setBlue(final_blue);
-        //update();
+
         }
         else
 
         {
             qDebug() << "Color selection cancelled";
         }
-
-
-
-
-
-
-
 }
 
-void MyScene::onRedSliderChanged(int value)
-{
-    color_ramka.setRed(value);
-    update(); // Перерисовка
-}
 
-void MyScene::onGreenSliderChanged(int value)
-{
-    color_ramka.setGreen(value);
-    update();
-}
-
-void MyScene::onBlueSliderChanged(int value)
-{
-    color_ramka.setBlue(value);
-    update();
-}
 
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)

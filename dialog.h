@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QSlider>
+#include <QSpinBox>
+#include <QComboBox>
 
 namespace Ui {
 class Dialog;
@@ -23,13 +25,22 @@ public:
     QSlider *horizontalSlider_Red;
     QSlider *horizontalSlider_Green;
     QSlider *horizontalSlider_Blue;
+    QSpinBox *spinBox;
+    QComboBox *comboBox;
+
 
 
 private slots:
-    void updateColor(int color_blue);
+    //void updateColor(int color_blue);
+
+    //void on_comboBox_currentIndexChanged(int index);
 
 signals:
     void changeSliders(int);
+
+public slots:
+    //void ChangeLine(int);
+
 
 
 private:
@@ -43,5 +54,7 @@ public:
 private:
     Ui::Dialog *ui;
 };
+
+
 
 #endif // DIALOG_H

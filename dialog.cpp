@@ -1,6 +1,7 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 #include <QDebug>
+#include <QStringList>
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -25,41 +26,33 @@ Dialog::Dialog(QWidget *parent) :
     horizontalSlider_Green = ui->horizontalSlider_Green;
     horizontalSlider_Blue = ui->horizontalSlider_Blue;
 
-    qDebug() << "Slider linked to UI:" << horizontalSlider_Red;
+//    QStringList list;
+//    list << "Solid line" << "Dashing line";
+//    ui->comboBox->addItems(list);
+
+    ui->comboBox->addItem("Сплошная линия",  static_cast<int>(Qt::SolidLine));
+    ui->comboBox->addItem("Пунктир",         static_cast<int>(Qt::DashLine));
+    ui->comboBox->addItem("Точки",           static_cast<int>(Qt::DotLine));
+    ui->comboBox->addItem("Штрих-пунктир",    static_cast<int>(Qt::DashDotLine));
+
+
+
+    spinBox = ui->spinBox;
+    comboBox=ui->comboBox;
+
+    //connect(comboBox, SIGNAL(activated(int)),this,SLOT(ChangeLine(int)));
+    //ui->comboBox->installEventFilter(this);
+   // qDebug() << "Slider linked to UI:" << horizontalSlider_Red;
 
 
 }
 
 
-void Dialog::updateColor(int value)
-{
 
-
-
-    ui->horizontalSlider_Blue->setValue(value);
-
-    // Обновляем текущий цвет
-    //currentColor.setBlue(blue);
-
-    // Здесь вы можете использовать эти значения:
-        // — сохранить в переменные,
-        // — передать в другой модуль,
-        // — вывести в консоль или на экран.
-        //qDebug() << "RGB: " <<red << ", " << green << ", " << blue;
-
-        update();
-
-
-
-}
-
-
-//void Dialog::changeSliders(in)
-//{
-
-//}
 
 Dialog::~Dialog()
 {
     delete ui;
 }
+
+

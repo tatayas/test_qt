@@ -15,8 +15,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-public slots:
-    void changeColor();
+//public slots:
+    //void changeColor();
 
 
 signals:
