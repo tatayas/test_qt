@@ -175,7 +175,25 @@
     </property>
    </widget>
   </widget>
+  <widget class="Pattern" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>170</y>
+     <width>171</width>
+     <height>171</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Pattern</class>
+   <extends>QWidget</extends>
+   <header>pattern.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -211,4 +229,8 @@
    </hints>
   </connection>
  </connections>
+ <slots>
+  <signal>signalChangePattern(QPen*)</signal>
+  <slot>slotSomebodyChanged()</slot>
+ </slots>
 </ui>

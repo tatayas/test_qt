@@ -6,6 +6,7 @@
 #include <QString>
 #include <QPen>
 #include "dialog.h"
+#include "pattern.h"
 
 
 MyScene::MyScene(QWidget *parent) : QGraphicsScene(parent)
@@ -36,6 +37,8 @@ void MyScene::changeColor()
 
     //my Dialog
     Dialog *dial = new Dialog();
+    //Pattern *pat = new Pattern();
+    //pat->show();
 
 
     int initial_red = color_ramka.red();
