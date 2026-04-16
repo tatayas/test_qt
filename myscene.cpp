@@ -67,10 +67,10 @@ void MyScene::changeColor()
     int index = dial->comboBox->findData(static_cast<int>(m_penStyle));
     if (index != -1)
     {
-        dial->comboBox->setCurrentIndex(index); //установила стиль, как в объявлении класса
+        dial->comboBox->setCurrentIndex(index); //установила стиль на форме, как в объявлении класса
     }
 
-    //dial->
+
 
         if (dial->exec() == QDialog::Accepted)
         {
@@ -81,14 +81,10 @@ void MyScene::changeColor()
             width_ramka = dial->spinBox->value();
             int data =dial->comboBox->currentData().toInt();
             Qt::PenStyle my_new_style = static_cast<Qt::PenStyle>(data);
+            m_penStyle = my_new_style;
 
-            if (data != -1)
-            {
-                dial->comboBox->setCurrentIndex(my_new_style); //установила стиль
-                //m_penStyle =dial
 
-            }
-            //update();
+            update();
             qDebug() << "data struct: red = " << color_ramka.red() <<"green = " <<color_ramka.green()<< "blue = "<<color_ramka.blue();
 
 
