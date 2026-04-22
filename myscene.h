@@ -36,6 +36,7 @@ public slots:
 
 signals:
     void custom_color(int color);
+    void signal_change_pattern(QPen pen);
 
     // QGraphicsScene interface
 protected:

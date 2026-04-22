@@ -5,6 +5,7 @@
 #include <QSlider>
 #include <QSpinBox>
 #include <QComboBox>
+#include "pattern.h"
 
 namespace Ui {
 class Dialog;
@@ -27,6 +28,7 @@ public:
     QSlider *horizontalSlider_Blue;
     QSpinBox *spinBox;
     QComboBox *comboBox;
+    Pattern *pattern;
 
 
 
@@ -37,9 +39,11 @@ private slots:
 
 signals:
     void changeSliders(int);
+    void signalChangePattern(QPen pen);
 
 public slots:
     //void ChangeLine(int);
+    void slotSomebodyChanged();
 
 
 

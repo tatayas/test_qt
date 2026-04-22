@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QStringList>
 
+
+
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
@@ -39,15 +41,41 @@ Dialog::Dialog(QWidget *parent) :
 
     spinBox = ui->spinBox;
     comboBox=ui->comboBox;
+    pattern  =ui->widget;
 
     //connect(comboBox, SIGNAL(activated(int)),this,SLOT(ChangeLine(int)));
     //ui->comboBox->installEventFilter(this);
    // qDebug() << "Slider linked to UI:" << horizontalSlider_Red;
 
+    connect(horizontalSlider_Red, SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(horizontalSlider_Green, SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(horizontalSlider_Blue,SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(spinBox,SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(comboBox,SIGNAL(activated(int)), this, SLOT(slotSomebodyChanged()));
+    connect(this, SIGNAL(signalChangePattern(QPen)), pattern, SLOT(slotChangePen(QPen)));
 
 }
 
+void Dialog::slotSomebodyChanged()
+{
+    QPen from_new_settings_pen;
+    QColor new_color;
+    new_color.setRed(horizontalSlider_Red->value());
+    new_color.setGreen(horizontalSlider_Red->value());
+    new_color.setBlue(horizontalSlider_Blue->value());
+    from_new_settings_pen.setColor(new_color);
+    //from_new_settings_pen.setStyle(comboBox->get);
+    int data =comboBox->currentData().toInt();
+    //Qt::PenStyle my_new_style = static_cast<Qt::PenStyle>(data);
+    //m_penStyle = my_new_style;
 
+    from_new_settings_pen.setStyle(static_cast<Qt::PenStyle>(data));
+    //int width = spinBox->value();
+    from_new_settings_pen.setWidth(spinBox->value());
+    emit signalChangePattern(from_new_settings_pen);
+
+
+}
 
 
 Dialog::~Dialog()
