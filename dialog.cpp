@@ -47,10 +47,13 @@ Dialog::Dialog(QWidget *parent) :
     //ui->comboBox->installEventFilter(this);
    // qDebug() << "Slider linked to UI:" << horizontalSlider_Red;
 
-    //connect(horizontalSlider_Red, SIGNAL(sliderPressed()), this, SLOT(slotSomebodyChanged()));
-    //connect(horizontalSlider_Blue,SIGNAL(sliderMoved(int)),this,SLOT(slotSomebodyChanged()));
-     connect(this, SIGNAL(signalChangePattern(QPen)), pattern, SLOT(slotChangePen(QPen)));
-     //signalChangePattern()
+    connect(horizontalSlider_Red, SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(horizontalSlider_Green, SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(horizontalSlider_Blue,SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(spinBox,SIGNAL(valueChanged(int)), this, SLOT(slotSomebodyChanged()));
+    connect(comboBox,SIGNAL(activated(int)), this, SLOT(slotSomebodyChanged()));
+    connect(this, SIGNAL(signalChangePattern(QPen)), pattern, SLOT(slotChangePen(QPen)));
+
 }
 
 void Dialog::slotSomebodyChanged()

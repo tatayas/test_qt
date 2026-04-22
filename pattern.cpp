@@ -9,9 +9,9 @@ Pattern::Pattern(QWidget *parent) : QWidget(parent)
 
 void Pattern::slotChangePen(QPen newPen)
 {
-//    m_color = newPen->color();
-//    m_width =newPen->width();
-//    m_style = newPen->style();
+    m_color = newPen.color();
+    m_width =newPen.width();
+    m_style = newPen.style();
 
     m_pen = newPen;
     update();
@@ -20,16 +20,20 @@ void Pattern::slotChangePen(QPen newPen)
 
 void Pattern::paintEvent(QPaintEvent *event)
 {
-    QWidget::paintEvent(event); // Вызов базы
+
     QPainter painter(this);
    // Рисуем линию: от (0,0) до (ширина, высота)
+    m_pen.setColor(m_color);
+    m_pen.setWidth(m_width);
+    m_pen.setStyle(m_style);
 
+    //QPen penn(m_color, m_width, m_style);
 
-    QPen penn(m_color, m_width, m_style);
-
-   painter.setPen(penn); // Цвет линии
+   painter.setPen(m_pen); // Цвет линии
    painter.drawLine(0, 0, this->width(), this->height());
    qDebug() << "Рисую!";
-   update();
+   //update();
+
+       QWidget::paintEvent(event); // Вызов базы
 
 }
