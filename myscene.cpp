@@ -85,11 +85,14 @@ void MyScene::changeColor()
             int data =dial->comboBox->currentData().toInt();
             Qt::PenStyle my_new_style = static_cast<Qt::PenStyle>(data);
             m_penStyle = my_new_style;
-
+            QPen new_pen;
+            new_pen.setColor(color_ramka);
+            new_pen.setWidth(width_ramka);
+            new_pen.setStyle(m_penStyle);
 
             update();
             qDebug() << "data struct: red = " << color_ramka.red() <<"green = " <<color_ramka.green()<< "blue = "<<color_ramka.blue();
-
+            emit signal_change_pattern(new_pen);
 
         }
         else
