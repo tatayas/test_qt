@@ -24,15 +24,17 @@ public:
     explicit MyScene(QWidget *parent = nullptr);
 
     // Описываем типы фигур
-    enum ShapeType { Rectangle, Ellipse }; // Типы примитивов
+    enum ShapeType { Rectangle, Ellipse, Marker }; // Типы примитивов
     QColor color_ramka = Qt::lightGray;             //цвет рамки
     uint width_ramka = 5;               //толщина рамки
     Qt::PenStyle m_penStyle = Qt::DashDotLine;       // Стиль рамки
+
+    // Метод для смены текущего типа фигуры
+    void setShapeType(ShapeType type) { m_currentShape = type; }
+
 public slots:
     void changeColor();
     //void changeLine(int);
-
-
 
 signals:
     void custom_color(int color);
@@ -46,10 +48,9 @@ protected:
  //   bool m_drawingInProcess;
 
 
-    // Метод для смены текущего типа фигуры
-    void setShapeType(ShapeType type) { m_currentShape = type; }
+
 private:
-    ShapeType m_currentShape; // Храним текущий выбор
+    ShapeType m_currentShape =Rectangle; // Храним текущий выбор
 
     QAbstractGraphicsShapeItem *m_current; // Указатель на текущий объект
 

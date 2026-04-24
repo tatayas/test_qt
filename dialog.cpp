@@ -61,7 +61,7 @@ void Dialog::slotSomebodyChanged()
     QPen from_new_settings_pen;
     QColor new_color;
     new_color.setRed(horizontalSlider_Red->value());
-    new_color.setGreen(horizontalSlider_Red->value());
+    new_color.setGreen(horizontalSlider_Green->value());
     new_color.setBlue(horizontalSlider_Blue->value());
     from_new_settings_pen.setColor(new_color);
     //from_new_settings_pen.setStyle(comboBox->get);

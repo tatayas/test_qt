@@ -16,10 +16,6 @@ MyScene::MyScene(QWidget *parent) : QGraphicsScene(parent)
     m_current = nullptr;
 }
 
-void changeLine(int)
-{
-
-}
 
 void MyScene::changeColor()
 {
@@ -112,8 +108,40 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
      {
          m_startPoint = event->scenePos();
 
-         m_current=new QGraphicsRectItem(m_startPoint.x(),m_startPoint.y(),0.,0.);
-         qDebug() <<"m_current = " << m_current;
+         if (m_currentShape==Rectangle)
+         {
+            m_current=new QGraphicsRectItem(m_startPoint.x(),m_startPoint.y(),0.,0.);
+            qDebug() <<"m_current = " << typeid(*m_current).name();
+
+         }
+
+         if (m_currentShape==Ellipse)
+         {
+             m_current=new QGraphicsEllipseItem(m_startPoint.x(),m_startPoint.y(),0.,0.);
+             qDebug() <<"m_current = " << typeid(*m_current).name();
+
+         }
+
+         if (m_currentShape==Marker)
+         {
+             m_startPoint = event->scenePos();
+
+             QPainterPath path;
+             path.moveTo(m_startPoint); // Начальная точка
+
+             auto *pathItem = new QGraphicsPathItem();
+             pathItem->setPath(path);
+
+             // Настройка "маркера"
+//             QPen pen(Qt::yellow, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+//             pathItem->setPen(pen);
+//             pathItem->setOpacity(0.5); // Полупрозрачность для эффекта маркера
+
+             m_current = pathItem;
+
+         }
+
+
 
          // Создаем перо с текущими атрибутами (пункт 6)
          QPen pen;
@@ -168,19 +196,38 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
            qreal height =  event->scenePos().y() - m_startPoint.y() ;
            //qDebug() <<"height = " << height;
 
-           //static_cast<QGraphicsRectItem*>(current)->setRect(0, 0, width, height);
-
-           // Обновляем геометрию (здесь считаем, что тянем вправо-вниз)
-           //if (m_currentShape == Rectangle) {
-               //static_cast<QGraphicsRectItem*>(current)->setRect(0, 0, width, height);
-          // } else {
-             //  static_cast<QGraphicsEllipseItem*>(current)->setRect(0, 0, width, height);
-           //}
-           QGraphicsRectItem*  new_cur = qgraphicsitem_cast<QGraphicsRectItem*>(m_current);
-           if (new_cur)
+           if (m_currentShape==Rectangle)
            {
-               new_cur->setRect(0,0,width,height);
+                QGraphicsRectItem*  new_cur = qgraphicsitem_cast<QGraphicsRectItem*>(m_current);
+                if (new_cur)
+                {
+                    new_cur->setRect(0,0,width,height);
+                }
            }
+
+           if (m_currentShape==Ellipse)
+           {
+                QGraphicsEllipseItem*  new_cur = qgraphicsitem_cast<QGraphicsEllipseItem*>(m_current);
+                if (new_cur)
+                {
+                    new_cur->setRect(0,0,width,height);
+                }
+           }
+
+           if (m_currentShape==Marker)
+           {
+               QGraphicsPathItem * new_cur = nullptr;
+               new_cur = qgraphicsitem_cast<QGraphicsPathItem*>(m_current);
+               if (new_cur)
+               {
+                   QPainterPath path = new_cur->path();
+                   path.lineTo(event->scenePos());
+                   new_cur->setPath(path);
+
+               }
+           }
+
+
 
           // new_cur->normalized();
           // rect_obj->normalized();

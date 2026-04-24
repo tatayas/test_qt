@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    MyScene *scene=new MyScene();//создаем НАШУ сцену
+    scene=new MyScene();//создаем НАШУ сцену
     //Например,
     ui->graphicsView->setScene(scene); //и ассоциируем ее с QGraphicsView
     QObject::connect(ui->actionChange_Color,SIGNAL(triggered()), scene, SLOT(changeColor()));
@@ -26,3 +26,18 @@ MainWindow::~MainWindow()
 //{
 
 //}
+
+void MainWindow::on_action_Rect_triggered()
+{
+    scene->setShapeType(MyScene::Rectangle);
+}
+
+void MainWindow::on_Action_Ellipse_triggered()
+{
+    scene->setShapeType(MyScene::Ellipse);
+}
+
+void MainWindow::on_action_marker_triggered()
+{
+    scene->setShapeType(MyScene::Marker);
+}

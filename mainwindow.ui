@@ -73,6 +73,9 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
+   <addaction name="action_Rect"/>
+   <addaction name="Action_Ellipse"/>
+   <addaction name="action_marker"/>
   </widget>
   <action name="action_Colors">
    <property name="text">
@@ -82,6 +85,30 @@
   <action name="actionChange_Color">
    <property name="text">
     <string>Change Color</string>
+   </property>
+  </action>
+  <action name="action_Rect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Rectangle</string>
+   </property>
+  </action>
+  <action name="Action_Ellipse">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ellipse</string>
+   </property>
+  </action>
+  <action name="action_marker">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Marker</string>
    </property>
   </action>
  </widget>

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "myscene.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,6 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    MyScene *scene;
 
 //public slots:
     //void changeColor();
@@ -21,6 +23,13 @@ public:
 
 signals:
     void sigColor_blue(int color_blue);
+
+private slots:
+    void on_action_Rect_triggered();
+
+    void on_Action_Ellipse_triggered();
+
+    void on_action_marker_triggered();
 
 private:
     Ui::MainWindow *ui;
